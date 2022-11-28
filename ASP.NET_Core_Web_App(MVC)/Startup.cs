@@ -62,9 +62,10 @@ namespace ASP.NET_Core_Web_App_MVC_
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}");
                 endpoints.MapRazorPages();
             });
+            
         }
     }
 }
