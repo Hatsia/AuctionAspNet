@@ -16,6 +16,6 @@ namespace ASP.NET_Core_Web_App_MVC_.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Request> Requests { get; set; }
-        public DbSet<ASP.NET_Core_Web_App_MVC_.Models.Bet> Bet { get; set; }
+        public DbSet<Bet> Bet { get; set; }
     }
 }

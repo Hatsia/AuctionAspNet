@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASP.NET_Core_Web_App_MVC_.Data;
 using ASP.NET_Core_Web_App_MVC_.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace ASP.NET_Core_Web_App_MVC_.Controllers
+namespace ASP.NET_Core_Web_App_MVC_
 {
     public class BetsController : Controller
     {
@@ -22,8 +23,7 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
         // GET: Bets
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Bet.Include(b => b.Customer).Include(b => b.Product);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Bet.ToListAsync());
         }
 
         // GET: Bets/Details/5
@@ -35,8 +35,6 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
             }
 
             var bet = await _context.Bet
-                .Include(b => b.Customer)
-                .Include(b => b.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bet == null)
             {
@@ -49,8 +47,6 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
         // GET: Bets/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
             return View();
         }
 
@@ -59,16 +55,15 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Time,StartPrice,CustomerId,ProductId")] Bet bet)
+        public async Task<IActionResult> Create([Bind("Id,Time,StartPrice")] Bet bet)
         {
             if (ModelState.IsValid)
             {
+                //IdentityUser<> 
                 _context.Add(bet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", bet.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", bet.ProductId);
             return View(bet);
         }
 
@@ -85,8 +80,6 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", bet.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", bet.ProductId);
             return View(bet);
         }
 
@@ -95,7 +88,7 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Time,StartPrice,CustomerId,ProductId")] Bet bet)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Time,StartPrice")] Bet bet)
         {
             if (id != bet.Id)
             {
@@ -122,8 +115,6 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", bet.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", bet.ProductId);
             return View(bet);
         }
 
@@ -136,8 +127,6 @@ namespace ASP.NET_Core_Web_App_MVC_.Controllers
             }
 
             var bet = await _context.Bet
-                .Include(b => b.Customer)
-                .Include(b => b.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bet == null)
             {
