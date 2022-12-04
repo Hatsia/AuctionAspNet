@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,13 +15,9 @@ namespace ASP.NET_Core_Web_App_MVC_.Models
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal StartPrice { get; set; }
+        
+        public IdentityUser IdentityUser { get; set; }
 
-        public int CustomerId { get; set; }
-        
-        public int ProductId { get; set; }
-        
-        public Customer Customer { get; set; }
-        
         public Product Product { get; set; }
     }
 }
