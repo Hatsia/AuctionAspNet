@@ -26,5 +26,7 @@ namespace ASP.NET_Core_Web_App_MVC_.Models
         public DateTime StartTimeTrading { get; set; }
 
         public DateTime EndTimeTrading { get; set; }
+        public ICollection<Bet> Bets { get; set; }
+        public ICollection<Request> Requests { get; set; }
     }
 }
