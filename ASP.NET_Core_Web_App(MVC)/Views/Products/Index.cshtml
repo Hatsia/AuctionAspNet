@@ -5,68 +5,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Список товаров</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTimeRequest)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartTimeTrading)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTimeTrading)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Img)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTimeRequest)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTimeTrading)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTimeTrading)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-img" style="background-image: url('@Html.DisplayFor(modelItem => item.Img)');"></div>
+            <div class="card-body">
+                <h5 class="card-title">Название: @Html.DisplayFor(modelItem => item.Name)</h5>
+                <h5 class="card-subtitle">Начальная цена: @Html.DisplayFor(modelItem => item.StartPrice) бел. руб.</h5>
+            </div>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </small>
+        </div>
+    }
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Img)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTimeRequest)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartTimeTrading)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTimeTrading)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Img)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTimeRequest)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTimeTrading)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTimeTrading)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
