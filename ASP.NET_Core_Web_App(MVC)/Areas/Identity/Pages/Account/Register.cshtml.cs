@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using ASP.NET_Core_Web_App_MVC_.Controllers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -77,8 +76,6 @@ namespace ASP.NET_Core_Web_App_MVC_.Areas.Identity.Pages.Account
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                // TODO: Here add code to add "Customer".
-                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
