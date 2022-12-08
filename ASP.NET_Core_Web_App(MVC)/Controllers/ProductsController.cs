@@ -10,6 +10,7 @@ using ASP.NET_Core_Web_App_MVC_.Models;
 
 namespace ASP.NET_Core_Web_App_MVC_
 {
+
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,6 +19,16 @@ namespace ASP.NET_Core_Web_App_MVC_
         {
             _context = context;
         }
+
+        //[HttpPost]
+        //public ActionResult CreateRequest(int? productId)
+        //{
+        //    if (!_requestsController.CreateRequest(productId))
+        //    {
+        //        return Ok();
+        //    }
+        //    return NotFound();
+        //}
 
         // GET: Products
         public async Task<IActionResult> Index()

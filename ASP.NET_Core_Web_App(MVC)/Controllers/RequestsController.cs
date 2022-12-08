@@ -73,17 +73,17 @@ namespace ASP.NET_Core_Web_App_MVC_
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRequest([FromQuery] int? productId)
         {
-                if (productId == null)
-                {
-                    return NotFound();
-                }
+            if (productId == null)
+            {
+                return NotFound();
+            }
 
-                Request request = null;
-                request.Products = _context.Products.First(x => x.Id == productId);
-                request.IdentityUsers = _context.Users.Find(User); //TODO ?
-                request.Time = DateTime.Now;
-                _context.Add(request);
-                await _context.SaveChangesAsync();
+            Request request = null;
+            request.Products = _context.Products.First(x => x.Id == productId);
+            request.IdentityUsers = _context.Users.Find(User); //TODO ?
+            request.Time = DateTime.Now;
+            _context.Add(request);
+            await _context.SaveChangesAsync();
 
             return Ok();
         }
