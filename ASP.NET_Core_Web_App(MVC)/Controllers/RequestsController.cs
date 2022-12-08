@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASP.NET_Core_Web_App_MVC_.Data;
 using ASP.NET_Core_Web_App_MVC_.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ASP.NET_Core_Web_App_MVC_
 {
     public class RequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public RequestsController(ApplicationDbContext context)
+        public RequestsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Requests
@@ -64,6 +67,43 @@ namespace ASP.NET_Core_Web_App_MVC_
             }
             return View(request);
         }
+
+        [HttpPost]
+        [Route("CreateRequest")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateRequest([FromQuery] int? productId)
+        {
+                if (productId == null)
+                {
+                    return NotFound();
+                }
+
+                Request request = null;
+                request.Products = _context.Products.First(x => x.Id == productId);
+                request.IdentityUsers = _context.Users.Find(User); //TODO ?
+                request.Time = DateTime.Now;
+                _context.Add(request);
+                await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        //// POST: Requests/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async ActionResult CreateRequest([Bind("Id,Time")] Request request)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        request.IdentityUsers = await userManager.GetUserAsync(User);
+        //        _context.Add(request);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(request);
+        //}
 
         // GET: Requests/Edit/5
         public async Task<IActionResult> Edit(int? id)
