@@ -25,7 +25,7 @@
             <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
         </small>
         <small class="text-muted">
-            <a class="btn btn-primary" asp-action="/Requests/CreateRequest" asp-route-id="@item.Id">Подать заявку</a>
+            <a class="btn btn-primary" asp-controller="Requests" asp-action="CreateRequest" asp-route-id="@item.Id">Подать заявку</a>
         </small>
     }
     else

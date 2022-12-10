@@ -68,24 +68,21 @@ namespace ASP.NET_Core_Web_App_MVC_
             return View(request);
         }
 
-        [HttpPost]
-        [Route("CreateRequest")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateRequest([FromQuery] int? productId)
+        public async Task<string> CreateRequest(int? Id)
         {
-            if (productId == null)
+            if (Id == null)
             {
-                return NotFound();
+                return "Fail";
             }
 
-            Request request = null;
-            request.Products = _context.Products.First(x => x.Id == productId);
-            request.IdentityUsers = _context.Users.Find(User); //TODO ?
+            Request request = new Request();
+            request.Products = _context.Products.First(x => x.Id == Id);
+            request.IdentityUsers = await _userManager.FindByIdAsync(_userManager.GetUserId(HttpContext.User));
             request.Time = DateTime.Now;
             _context.Add(request);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return "Done";    
         }
 
         //// POST: Requests/Create
