@@ -68,21 +68,21 @@ namespace ASP.NET_Core_Web_App_MVC_
             return View(request);
         }
 
-        public async Task<string> CreateRequest(int? Id)
+        public async Task<IActionResult> CreateRequest(int? Id)
         {
             if (Id == null)
             {
-                return "Fail";
+                return NotFound();
             }
 
             Request request = new Request();
             request.Products = _context.Products.First(x => x.Id == Id);
             request.IdentityUsers = await _userManager.FindByIdAsync(_userManager.GetUserId(HttpContext.User));
-            request.Time = DateTime.Now;
+            request.Time = DateTime.Now;            
             _context.Add(request);
             await _context.SaveChangesAsync();
 
-            return "Done";    
+            return View("Index", await _context.Requests.ToListAsync());    
         }
 
         //// POST: Requests/Create
