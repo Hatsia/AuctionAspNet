@@ -16,8 +16,7 @@ namespace ASP.NET_Core_Web_App_MVC_.Models
 
         public string Description { get; set; }
 
-        [Column(TypeName = "decimal(6, 2)")]
-        public decimal StartPrice { get; set; }
+        public int StartPrice { get; set; }
 
         public string Img { get; set; }
 
