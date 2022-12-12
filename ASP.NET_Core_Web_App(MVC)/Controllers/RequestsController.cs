@@ -78,6 +78,7 @@ namespace ASP.NET_Core_Web_App_MVC_
             Request request = new Request();
             request.Products = _context.Products.First(x => x.Id == Id);
             request.IdentityUsers = await _userManager.FindByIdAsync(_userManager.GetUserId(HttpContext.User));
+            request.status = false;
             request.Time = DateTime.Now;            
             _context.Add(request);
             await _context.SaveChangesAsync();

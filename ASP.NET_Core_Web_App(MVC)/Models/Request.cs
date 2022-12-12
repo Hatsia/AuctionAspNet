@@ -13,6 +13,7 @@ namespace ASP.NET_Core_Web_App_MVC_.Models
         public int Id { get; set; }
         public DateTime Time { get; set; }
         public IdentityUser IdentityUsers { get; set; }
+        public bool status { get; set; }
         public Product Products { get; set; }
     }
 }

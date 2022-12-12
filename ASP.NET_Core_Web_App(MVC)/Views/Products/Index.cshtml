@@ -19,26 +19,25 @@
                 <h5 class="card-subtitle">Начальная цена: @Html.DisplayFor(modelItem => item.StartPrice) бел. руб.</h5>
             </div>
         </div><div class="card-footer">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <small class="text-muted">
-            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
-        </small>
-        <small class="text-muted">
-            <a class="btn btn-primary" asp-controller="Requests" asp-action="CreateRequest" asp-route-id="@item.Id">Подать заявку</a>
-        </small>
-    }
-    else
-    {
-        <small class="text-muted">
-            <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Details</a>
-        </small>
-    }
-</div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <small class="text-muted">
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </small>
+                <small class="text-muted">
+                    <a class="btn btn-primary" asp-controller="Requests" asp-action="CreateRequest" asp-route-id="@item.Id">Подать заявку</a>
+                </small>
+            }
+            else
+            {
+                <small class="text-muted">
+                    <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Details</a>
+                </small>
+            }
+        </div>
     }
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 @*<table class="table">
         <thead>
