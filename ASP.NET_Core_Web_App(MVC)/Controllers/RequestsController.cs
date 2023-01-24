@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ASP.NET_Core_Web_App_MVC_.Data;
 using ASP.NET_Core_Web_App_MVC_.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Dynamic;
 
 namespace ASP.NET_Core_Web_App_MVC_
 {
@@ -21,10 +22,16 @@ namespace ASP.NET_Core_Web_App_MVC_
             _context = context;
             _userManager = userManager;
         }
-
+        
         // GET: Requests
         public async Task<IActionResult> Index()
         {
+            //_context.Update(_context.Products.AllAsync());
+            //_context.SaveChanges();
+            _context.Products.Include(m => m.Requests).ToList();
+
+            List<Request> requests = await _context.Requests.ToListAsync();
+
             return View(await _context.Requests.ToListAsync());
         }
 
@@ -79,10 +86,12 @@ namespace ASP.NET_Core_Web_App_MVC_
             request.Products = _context.Products.First(x => x.Id == Id);
             request.IdentityUsers = await _userManager.FindByIdAsync(_userManager.GetUserId(HttpContext.User));
             request.status = false;
-            request.Time = DateTime.Now;            
-            _context.Add(request);
-            await _context.SaveChangesAsync();
+            request.Time = DateTime.Now;
 
+            _context.Products.Include(m => m.Requests).ToList();
+            _context.Add(request);
+            _context.SaveChanges();
+           
             return View("Index", await _context.Requests.ToListAsync());    
         }
 
