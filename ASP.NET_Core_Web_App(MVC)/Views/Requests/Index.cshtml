@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<ASP.NET_Core_Web_App_MVC_.Models.Request>
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,10 +12,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th>s
-                @Html.DisplayNameFor(model => model.Time)
+            <th>
+                Время отправки заявки
             </th>
-            <th></th>
+            <th>
+                Название продукта
+            </th>
+            <th>
+                Статус
+            </th>
+            <th>
+                Действие
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -25,9 +32,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Time)
             </td>
-            <td>@Html.DisplayFor(modelitem => item.Products.Name)</td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                @Html.DisplayFor(modelItem => item.Products.Name)
+            </td>
+
+            @if (item.status == true)
+            {
+                <td>Одобрено</td>
+            }
+            else
+            {
+                <td>Не одобрено</td>
+            }
+
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
